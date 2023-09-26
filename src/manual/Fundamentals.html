@@ -1,0 +1,63 @@
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>three.js webgl - Fundamentals</title>
+  <style>
+    body {
+      margin: 0;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <canvas id="c"></canvas>
+</body>
+
+<script type="module">
+  import * as THREE from 'three';
+
+  function main() {
+    const canvas = document.querySelector('#c');
+    const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
+
+    const fov = 75; // filed of view 视野范围
+    const aspect = 2;  // the canvas default // 画布的高宽比
+    const near = 0.1; // the near clipping plane // 近裁剪面 近平面
+    const far = 5; // the far clipping plane // 远裁剪面 远平面
+    // 以上四个参数共同决定了视锥体(frustum)。
+    // 视椎体内部的物体将被绘制，视椎体外的东西将不会被绘制。
+    const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
+    camera.position.z = 2;
+
+    const scene = new THREE.Scene();
+
+    const boxWidth = 1;
+    const boxHeight = 1;
+    const boxDepth = 1;
+    const geometry = new THREE.BoxGeometry(boxWidth, boxHeight, boxDepth);
+
+    const material = new THREE.MeshBasicMaterial({ color: 0x44aa88 });  // 0x开头的是十六进制
+
+    /**
+     * 创建一个网格(Mesh)对象，它包含了：
+     * 1. 几何体(Geometry)(物体的形状)
+     * 2. 材质(Material)(如何绘制物体，光滑还是平整，什么颜色，什么贴图等等)
+     * 3. 对象在场景中相对于他父对象的位置、朝向、和缩放。下面的代码中父对象即为场景对象。
+     */
+    const cube = new THREE.Mesh(geometry, material);
+
+    scene.add(cube);
+
+    renderer.render(scene, camera);
+  }
+
+  main();
+</script>
+
+
+</html>
