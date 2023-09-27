@@ -1,7 +1,4 @@
 import './style.css'
-import { initThreeJsScene } from './threeCanvas'
+import runFundamentals from './manual/Fundamentals';
 
-const mainElement = document.querySelector<HTMLDivElement>('#app')
-if (mainElement) {
-  initThreeJsScene(mainElement)
-}
+runFundamentals();
