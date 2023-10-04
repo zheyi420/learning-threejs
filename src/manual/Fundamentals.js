@@ -1,7 +1,7 @@
 import * as THREE from "three";
 
 export default () => {
-  const canvas = document.querySelector('#c');
+  const canvas = document.querySelector('#renderer-canvas');
   const renderer = new THREE.WebGLRenderer({ antialias: true, canvas });
 
   const fov = 90; // filed of view 视野范围
@@ -33,7 +33,7 @@ export default () => {
    * 3. 对象在场景中相对于他父对象的位置、朝向、和缩放。下面的代码中父对象即为场景对象。
    */
   const cubes = [
-    makeInstance(geometry, 0x8844aa, -2),
+    makeInstance(geometry, 0xffffff, -2),
     makeInstance(geometry, 0x44aa88, 0),
     makeInstance(geometry, 0xaa8844, 2),
     makeInstance(geometry, 0x8844bb, -2, 2),
