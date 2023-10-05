@@ -6,7 +6,8 @@
 
 <script setup>
 import runFundamentals from '../manual/Fundamentals';
-import { onMounted, watch } from 'vue';
+import runResponsive from '../manual/Responsive';
+import { watch } from 'vue';
 import { useCurItemStore } from '../stores/states';
 
 const curItemStore = useCurItemStore();
@@ -14,6 +15,9 @@ const curItemStore = useCurItemStore();
 watch(() => curItemStore.getCurItem, (curItem, preItem) => {
   if (curItem != null) {
     run(curItem);
+  } else {
+    // TODO: clear canvas
+    const canvas = document.querySelector('#renderer-canvas');
   }
 });
 
@@ -23,7 +27,7 @@ const run = (curItem) => {
       runFundamentals();
       break;
     case 1:
-      
+      runResponsive();
       break;
     default:
       break;
