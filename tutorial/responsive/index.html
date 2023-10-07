@@ -4,12 +4,21 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-  <title>three.js responsive</title>
+  <title>Three.js - Responsive Editor</title>
   <link type="text/css" rel="stylesheet" href="./index.css">
 </head>
 
 <body>
-  <canvas id="renderer-canvas"></canvas>
+  <div id="editor">
+    <div id="view"><canvas id="renderer-canvas"></canvas></div>
+    <div id="controls">
+      <div>
+        <p>various controls would appear here</p>
+        <div>Drag this bar</div>
+        <div>⇐</div>
+      </div>
+    </div>
+  </div>
   <script type="importmap">
 			{
 				"imports": {
@@ -20,6 +29,31 @@
 		</script>
 
   <script type="module" src="./index.js"></script>
+  <script src="./split.min.js"></script>
+  <script type="module">
+    /* global Split */
+
+    // This code is only related to handling the split.
+    // Our three.js code has not changed
+    Split(['#view', '#controls'], { // eslint-disable-line new-cap
+      sizes: [75, 25],
+      minSize: 100,
+      elementStyle: (dimension, size, gutterSize) => {
+
+        return {
+          'flex-basis': `calc(${size}% - ${gutterSize}px)`,
+        };
+
+      },
+      gutterStyle: (dimension, gutterSize) => {
+
+        return {
+          'flex-basis': `${gutterSize}px`,
+        };
+
+      },
+    });
+  </script>
 
 </body>
 

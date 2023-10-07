@@ -14,9 +14,15 @@ function main() {
   // 视椎体内部的物体将被绘制，视椎体外的东西将不会被绘制。
   const camera = new THREE.PerspectiveCamera(fov, height / width, near, far);
   // const camera = new THREE.PerspectiveCamera(fov, aspect, near, far);
-  // renderer.setSize(width, height);
-  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
   camera.position.z = 2;
+  // renderer.setSize(width, height);
+
+  renderer.setSize(canvas.clientWidth, canvas.clientHeight, false); // 设置 canvas 的内部尺寸，它的分辨率。
+  camera.aspect = canvas.clientWidth / canvas.clientHeight;
+  camera.updateProjectionMatrix();
+
+  console.log('window.devicePixelRatio', window.devicePixelRatio);
+  const pixelRatio = window.devicePixelRatio;
 
   const scene = new THREE.Scene();
 
@@ -59,8 +65,15 @@ function main() {
    */
   function resizeRendererToDisplaySize(renderer) {
     const canvas = renderer.domElement;
-    const width = canvas.clientWidth;
-    const height = canvas.clientHeight;
+
+    // for HD-DPI devices
+    // const pixelRatio = window.devicePixelRatio; // 放到上面主函数内去了。
+    const width = canvas.clientWidth * pixelRatio | 0;
+    const height = canvas.clientHeight * pixelRatio | 0;
+
+    // const width = canvas.clientWidth; // 获取canvas的显示尺寸，即canvas的CSS像素值。
+    // const height = canvas.clientHeight;
+
     const needResize = canvas.width !== width || canvas.height !== height;
     if (needResize) {
       // 一个canvas的内部尺寸，它的分辨率，通常被叫做绘图缓冲区(drawingbuffer)尺寸。
